@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <h2 class="text-center">Gestión de Medicamentos</h2>
+
+  <form (ngSubmit)="onSave()" class="bg-light p-4 rounded shadow">
+    <div class="form-group">
+      <label for="healthRecord">Health Record:</label>
+      <input 
+        id="healthRecord"
+        type="text" 
+        class="form-control" 
+        (input)="updateHealthRecord($event)" 
+        required 
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción:</label>
+      <input 
+        id="description"
+        type="text" 
+        class="form-control" 
+        (input)="updateDescription($event)" 
+        required 
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="manufacturer">Fabricante:</label>
+      <input 
+        id="manufacturer"
+        type="text" 
+        class="form-control" 
+        (input)="updateManufacturer($event)" 
+        required 
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="medicineType">Tipo de Medicina:</label>
+      <select 
+        id="medicineType" 
+        class="form-control" 
+        (change)="updateMedicineTypeDescription($event)" 
+        required>
+        <option *ngFor="let type of medicineTypes" [value]="type.value">{{ type.value }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" (click)="onSave()">Guardar</button>
+  </form>
+
+  <hr />
+
+  <h3 class="mt-4">Medicamentos Registrados</h3>
+  <table class="table table-striped table-bordered mt-3">
+    <thead class="thead-dark">
+      <tr>
+        <th>Descripción</th>
+        <th>Health Record</th>
+        <th>Fabricante</th>
+        <th>Tipo de Medicina</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let med of medicines">
+        <td>{{ med.description }}</td>
+        <td>{{ med.healthRecord }}</td>
+        <td>{{ med.manufacturer }}</td>
+        <td>{{ med.medicineTypePresenter.description }}</td>
+        <td>
+          <button (click)="onDelete(med.medicineId)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
