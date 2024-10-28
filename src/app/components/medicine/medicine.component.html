@@ -9,6 +9,7 @@
         type="text" 
         class="form-control" 
         (input)="updateHealthRecord($event)" 
+        [value]="newMedicine.healthRecord"
         required 
       />
     </div>
@@ -20,6 +21,7 @@
         type="text" 
         class="form-control" 
         (input)="updateDescription($event)" 
+        [value]="newMedicine.description"
         required 
       />
     </div>
@@ -31,6 +33,7 @@
         type="text" 
         class="form-control" 
         (input)="updateManufacturer($event)" 
+        [value]="newMedicine.manufacturer"
         required 
       />
     </div>
@@ -41,8 +44,9 @@
         id="medicineType" 
         class="form-control" 
         (change)="updateMedicineTypeDescription($event)" 
+        [value]="newMedicine.medicineTypePresenter.medicineTypeId"
         required>
-        <option *ngFor="let type of medicineTypes" [value]="type.value">{{ type.value }}</option>
+        <option *ngFor="let type of medicineTypes" [value]="type.id">{{ type.value }}</option>
       </select>
     </div>
 
@@ -69,6 +73,7 @@
         <td>{{ med.manufacturer }}</td>
         <td>{{ med.medicineTypePresenter.description }}</td>
         <td>
+          <button (click)="onEdit(med)" class="btn btn-warning">Editar</button>
           <button (click)="onDelete(med.medicineId)" class="btn btn-danger">Eliminar</button>
         </td>
       </tr>

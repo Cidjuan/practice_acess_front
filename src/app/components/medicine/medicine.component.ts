@@ -23,6 +23,7 @@ export class MedicineComponent implements OnInit {
   ];
   page: number = 0;
   size: number = 10;
+  editing: boolean = false;  // Modo edición
 
   constructor(private medicineService: MedicineService) { }
 
@@ -41,6 +42,11 @@ export class MedicineComponent implements OnInit {
       this.onSearch();
       this.clearForm();
     });
+  }
+
+  onEdit(medicine: any): void {
+    this.newMedicine = { ...medicine };
+    this.editing = true;
   }
 
   onDelete(medicineId: string): void {
@@ -66,8 +72,8 @@ export class MedicineComponent implements OnInit {
   }
 
   updateMedicineTypeDescription(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const selectedType = this.medicineTypes.find(type => type.value === input.value);
+    const select = event.target as HTMLSelectElement;
+    const selectedType = this.medicineTypes.find(type => type.id === select.value);
     if (selectedType) {
       this.newMedicine.medicineTypePresenter.medicineTypeId = selectedType.id;
     }
@@ -82,5 +88,6 @@ export class MedicineComponent implements OnInit {
         medicineTypeId: ''
       }
     };
+    this.editing = false;
   }
 }
